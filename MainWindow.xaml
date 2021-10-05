@@ -1,0 +1,128 @@
+﻿<Window x:Class="MailSender.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MailSender"
+        xmlns:tabs="clr-namespace:MailSender.Tabs"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:beha="clr-namespace:MailSender.Behaviours"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Icon="/Media/icon.png"
+        DataContext="{Binding Source={StaticResource ResourceKey=Locator}, Path=MainWindow}"
+        Title="Главное меню" Height="900" Width="900"  ResizeMode="CanMinimize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen">
+    <Grid Background="#333">
+        <Border BorderThickness="4" HorizontalAlignment="Center"  Width="800" Height="770" VerticalAlignment="Center"  Margin="50,65,44,36">
+            <StackPanel>
+                <TextBlock FontFamily="Verdana" Text="Шаблоны:" HorizontalAlignment="Center" Margin="0 25"  FontSize="30" FontWeight="Bold" Foreground="#fff" />
+                <TabControl HorizontalAlignment="center" Height="550"  Width="650" FontFamily="Verdana"  FontWeight="Bold">
+                    <TabItem x:Name="___Без_имени_" Header="ФизЛица" Width="100" Height="30" >
+                        <ScrollViewer HorizontalAlignment="Left" Height="500"  VerticalAlignment="Top" Width="645" VerticalScrollBarVisibility="Auto">
+                            <i:Interaction.Behaviors>
+                                <beha:IgnoreMouseWheelBehavior />
+                            </i:Interaction.Behaviors>
+                            <StackPanel>
+                                <ListBox
+                                        IsEnabled="{Binding IsChecked, ElementName=EnableListBox}"
+                                        ItemsSource="{Binding TextTemplateFL}"
+                                        SelectedValue="{Binding CurrentShablon}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseDoubleClick">
+                                            <i:InvokeCommandAction Command="{Binding CurrentShablonSelected}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ListBox>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+                    <TabItem Header="ЮрЛица" Width="100" Height="30" VerticalAlignment="Top">
+                        <ScrollViewer HorizontalAlignment="Left" Height="500"  VerticalAlignment="Top" Width="645" VerticalScrollBarVisibility="Auto">
+                            <i:Interaction.Behaviors>
+                                <beha:IgnoreMouseWheelBehavior />
+                            </i:Interaction.Behaviors>
+                            <StackPanel>
+                                <ListBox
+                                        IsEnabled="{Binding IsChecked, ElementName=EnableListBox}"
+                                        ItemsSource="{Binding TextTemplateUL }"
+                                          SelectedValue="{Binding CurrentShablon}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseDoubleClick">
+                                            <i:InvokeCommandAction Command="{Binding CurrentShablonSelected}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ListBox>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+                    <TabItem Header="Иные" Width="100" Height="30" VerticalAlignment="Top">
+                        <ScrollViewer HorizontalAlignment="Left" Height="500"  VerticalAlignment="Top" Width="645" VerticalScrollBarVisibility="Auto">
+                            <i:Interaction.Behaviors>
+                                <beha:IgnoreMouseWheelBehavior />
+                            </i:Interaction.Behaviors>
+                            <StackPanel>
+                                <ListBox
+                                        IsEnabled="{Binding IsChecked, ElementName=EnableListBox}"
+                                        ItemsSource="{Binding TextTemplateAnother }"                                       
+                                          SelectedValue="{Binding CurrentShablon}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseDoubleClick">
+                                            <i:InvokeCommandAction Command="{Binding CurrentShablonSelected}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ListBox>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+                </TabControl>
+                <StackPanel Height="160" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Button  x:Name="btn_Exit" 
+                             Width="180" 
+                             Height="50"  
+                             Background="#FF9209" 
+                             Cursor="Hand" 
+                             BorderBrush="#E5A11B" 
+                             Content="Выход" 
+                             materialDesign:ButtonAssist.CornerRadius="25" 
+                             Foreground="White" 
+                             FontFamily="Verdana" 
+                             FontWeight="Bold" 
+                             Command="{Binding ExitProgram}"/>
+                    <Button  
+                             Width="180" 
+                             Height="50"  
+                             Background="#FF9209" 
+                             Cursor="Hand" 
+                             BorderBrush="#E5A11B" 
+                             Margin="20,30,0,30"  
+                             materialDesign:ButtonAssist.CornerRadius="25" 
+                             Foreground="White" 
+                             FontFamily="Verdana" 
+                             FontWeight="Bold" 
+                             Command="{Binding NewConnection}">
+                        <TextBlock TextWrapping="Wrap" 
+                                   TextAlignment="Center" 
+                                   Foreground="White" 
+                                   FontFamily="Verdana" 
+                                   FontWeight="Bold">
+                            <Run Text="Добавить новое подключение"/>
+                        </TextBlock>
+
+                    </Button>
+                    <Button  x:Name="btn_New" 
+                             Width="180" 
+                             Height="50"   
+                             Background="#FF9209" 
+                             Cursor="Hand" 
+                             BorderBrush="#E5A11B"   
+                             Margin="20 0 0 0" 
+                             materialDesign:ButtonAssist.CornerRadius="25"                         
+                             Command="{Binding NewShablon}">
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Foreground="White" FontFamily="Verdana" FontWeight="Bold"><Run Text="Создать новый шаблон"/></TextBlock>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
+

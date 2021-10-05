@@ -1,0 +1,58 @@
+﻿<Window x:Class="MailSender.CreateShablon"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MailSender"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:beha="clr-namespace:MailSender.Behaviours"
+        xmlns:custom="clr-namespace:MailSender"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:tabs ="clr-namespace:MailSender.Tabs"
+        mc:Ignorable="d"
+        Icon="/Media/icon.png"
+        ResizeMode="CanMinimize" 
+        WindowState="Maximized"
+        Width="1600" Height="940"
+        >
+    <Grid Background="#333">
+
+        <TabControl DataContext="{Binding Source={StaticResource ResourceKey=Locator}, Path=ControlTab}" 
+                    Width="auto"
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch"
+                    FontFamily="Verdana" 
+                    FontWeight="Bold"
+                    Background="#333" 
+                    BorderBrush="#333"                  
+                    SelectedIndex="{Binding CurrentIndex}">
+
+                <TabItem Style="{StaticResource TTstyle}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <TabItem.Header>
+                    <TextBlock Text="SQL-запрос" Width="auto"  TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                    </TabItem.Header>
+                    <tabs:SqlQueryTab />
+                </TabItem>
+
+                <TabItem Style="{StaticResource TTstyle}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <TabItem.Header>
+                    <TextBlock Text="HTML-шаблон" Width="auto" TextAlignment="Center" HorizontalAlignment="Stretch"/>
+                    </TabItem.Header>
+                    <tabs:HtmlTempTab x:Name="HtmlTabUc"/>
+                </TabItem>
+                <TabItem Style="{StaticResource TTstyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <TabItem.Header>
+                    <TextBlock Text="Настройка отправки" Width="auto" TextAlignment="Center" HorizontalAlignment="Stretch"/>
+                    </TabItem.Header>
+                    <tabs:SettingsTab x:Name="SettingsTab"/>
+                </TabItem>
+            <TabItem Style="{StaticResource TTstyle}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TabItem.Header>
+                    <TextBlock Text="Результаты" Width="auto" TextAlignment="Center" HorizontalAlignment="Stretch"/>
+                </TabItem.Header>
+                <tabs:ResultsTab x:Name="ResultsTab"/>
+            </TabItem>
+        </TabControl>
+      
+    </Grid>
+</Window>

@@ -1,0 +1,196 @@
+﻿<UserControl x:Class="MailSender.Tabs.ResultsTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:beha="clr-namespace:MailSender.Behaviours"
+             xmlns:local="clr-namespace:MailSender.Tabs"
+             DataContext="{Binding Source={StaticResource ResourceKey=Locator}, Path=ResultTab}"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="900">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="137*"/>
+            <RowDefinition Height="63*"/>
+        </Grid.RowDefinitions>
+        <Border Background="#445E77" Width="900" Height="600" Grid.RowSpan="2">
+            <StackPanel Height="800">
+                <StackPanel Orientation="Horizontal" 
+                            Margin="150 50 0 0">
+                    <!--<ScrollViewer MaxWidth="500"  
+                                  Height="300" 
+                                  VerticalAlignment="Stretch"  
+                                  HorizontalAlignment="Stretch"
+                                  VerticalScrollBarVisibility="Auto" 
+                                  HorizontalScrollBarVisibility="Auto">
+                        <i:Interaction.Behaviors>
+                            <beha:IgnoreMouseWheelBehavior/>
+                        </i:Interaction.Behaviors>
+                        <DataGrid   Width="500"
+                                ItemsSource="{Binding SendedMails}"
+                                AutoGenerateColumns="True" 
+                                MinHeight="300"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Top" 
+                                Background="#8FA5BB"
+                                IsReadOnly="True"
+                        />
+                    </ScrollViewer>-->
+                    <StackPanel Width="250"  HorizontalAlignment="Center"  Margin="0 50 0 50">
+                        <Button Width="80"  
+                                        Height="60" 
+                                        Background="#FF9209" 
+                                        Cursor="Hand" 
+                                        BorderBrush="#E5A11B" 
+                                        materialDesign:ButtonAssist.CornerRadius="25" 
+                                        Foreground="White" 
+                                        FontFamily="Verdana"
+                                        FontWeight="Bold"                            
+                                        Command="{Binding Stop}">
+                            <Image Source="../Media/stop.png"  Width="50" Height="50" Margin="0 5 0 0" />
+                        </Button>
+                        <Button Width="80"  
+                            Height="60"
+                            Background="#FF9209" 
+                            Cursor="Hand" 
+                            BorderBrush="#E5A11B" 
+                            materialDesign:ButtonAssist.CornerRadius="25" 
+                            Foreground="White" 
+                            FontFamily="Verdana" 
+                            FontWeight="Bold"
+                            Margin="0 80 0 0"
+                            Command="{Binding ExecuteSend}">
+                            <Image Source="../Media/ok.png"  Width="50" Height="50" Margin="0 5 0 0" />
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+                <!--<TextBlock     Width="300"
+                               Height="41" 
+                               Foreground="White"
+                               VerticalAlignment="Top" 
+                               HorizontalAlignment="Center"
+                               Margin="292,0,308,0"  
+                               Padding="20"
+                               Text="{Binding ResultSending}"/>-->
+                <StatusBar Width="650"  Margin="100 50 50 0" Background="#445E77">
+                    <StatusBarItem>
+
+                        <TextBlock Width="150"
+                                   Foreground="White"
+                                   TextAlignment="Center"
+                                   FontWeight="Bold"
+                                   FontSize="14"
+                                   Text="Отправлено:"/>
+                    </StatusBarItem>
+                    <StatusBarItem>
+                        <TextBlock Width="100"
+                                   Foreground="White"
+                                   TextAlignment="Center"
+                                   FontWeight="Bold"
+                                   FontSize="14"
+                                   Text="{Binding CurrentProgressValue}"/>
+                    </StatusBarItem>
+                    <StatusBarItem>
+                        <TextBlock Width="50"
+                                   Foreground="White"
+                                   TextAlignment="Center"
+                                   FontWeight="Bold"
+                                   FontSize="14"
+                                   Text="из"/>
+                    </StatusBarItem>
+                    <StatusBarItem>
+
+                        <TextBlock Width="100"
+                                   Foreground="White"
+                                   TextAlignment="Center"
+                                   FontWeight="Bold"
+                                   Text="{Binding MaxProgress}"/>
+                    </StatusBarItem>
+                    <StatusBarItem>
+                        <ProgressBar 
+                                 Height="20"
+                                 Width="400"
+                                 Value="{Binding CurrentProgressValue}"
+                                 Maximum="{Binding MaxProgress}"
+                                 HorizontalAlignment="Right"
+                        >
+                            <ProgressBar.Style>
+                                <Style TargetType="{x:Type ProgressBar}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Working}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ProgressBar.Style>
+                        </ProgressBar>
+                    </StatusBarItem>
+                </StatusBar>
+
+                <StackPanel   HorizontalAlignment="Center" Margin="0 50" Orientation="Horizontal">
+                    <Button Width="160"
+                            Height="50" 
+                            Background="#FF9209" 
+                            Cursor="Hand" 
+                            BorderBrush="#E5A11B"  
+                            materialDesign:ButtonAssist.CornerRadius="30"
+                            Foreground="White"
+                            FontFamily="Verdana" 
+                            FontWeight="Bold" 
+                            Margin="0 0 20 0"
+                            Command="{Binding Exit}">
+                        <StackPanel Orientation="Horizontal" >
+                            <!--<Image  Height="40"  Margin="0 0 20 0" Source="../Media/.png"/>-->
+                            <TextBlock Margin="0 0 80 0" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" >Отчет</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Width="150" 
+                            Height="50" 
+                            Background="#FF9209" 
+                            Cursor="Hand" 
+                            BorderBrush="#E5A11B" 
+                            materialDesign:ButtonAssist.CornerRadius="30" 
+                            Foreground="White" 
+                            FontFamily="Verdana" 
+                            FontWeight="Bold" 
+                            Margin="0 0 20 0"
+                            Command="{Binding Log}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image HorizontalAlignment="Left" Width="30" Margin="0 0 20 0"  Source="../Media/file.png"/>
+                            <TextBlock VerticalAlignment="Center" FontSize="16">Логи</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Width="150" Height="50" Margin="0 0 20 0" Background="#FF9209" 
+                            Cursor="Hand" 
+                            BorderBrush="#E5A11B"  materialDesign:ButtonAssist.CornerRadius="30" 
+                            Foreground="White" FontFamily="Verdana" 
+                            FontWeight="Bold"
+                            Command="{Binding MainMenu}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image HorizontalAlignment="Left" Width="30" Margin="0 0 20 0" Source="../Media/menu.png"/>
+                            <TextBlock Margin="0 0 10 0" VerticalAlignment="Center" FontSize="16" >Главное меню</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Width="150"
+                            Height="50" 
+                            Background="#FF9209" 
+                            Cursor="Hand" 
+                            BorderBrush="#E5A11B"  
+                            materialDesign:ButtonAssist.CornerRadius="30"
+                            Foreground="White"
+                            FontFamily="Verdana" 
+                            FontWeight="Bold" 
+                            Command="{Binding Exit}">
+                        <StackPanel Orientation="Horizontal" >
+                            <Image  Height="40"  Margin="0 0 20 0" Source="../Media/exit.png"/>
+                            <TextBlock Margin="0 0 80 0" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" >Выход</TextBlock>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

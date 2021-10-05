@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище SendMailerModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Parametrs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameParam" Type="nvarchar" MaxLength="64" />
+          <Property Name="ValueParam" Type="nvarchar" MaxLength="64" />
+          <Property Name="ID_result" Type="int" />
+        </EntityType>
+        <EntityType Name="Results">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_send" Type="int" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="Client_account" Type="varchar(max)" />
+          <Property Name="Flag_success" Type="bit" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Send">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="ID_shablon" Type="int" />
+        </EntityType>
+        <EntityType Name="Shablons">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="64" />
+          <Property Name="DB_Name" Type="nvarchar" MaxLength="64" />
+          <Property Name="Query" Type="nvarchar(max)" />
+          <Property Name="HTML" Type="nvarchar(max)" />
+          <Property Name="Consumer_Type" Type="nvarchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Parametrs_Results">
+          <End Role="Results" Type="Self.Results" Multiplicity="0..1" />
+          <End Role="Parametrs" Type="Self.Parametrs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Results">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Parametrs">
+              <PropertyRef Name="ID_result" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Results_Send">
+          <End Role="Send" Type="Self.Send" Multiplicity="1" />
+          <End Role="Results" Type="Self.Results" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Send">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="ID_send" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Send_Shablons">
+          <End Role="Shablons" Type="Self.Shablons" Multiplicity="0..1" />
+          <End Role="Send" Type="Self.Send" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shablons">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Send">
+              <PropertyRef Name="ID_shablon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище SendMailerModelContainer">
+          <EntitySet Name="Parametrs" EntityType="Self.Parametrs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Results" EntityType="Self.Results" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Send" EntityType="Self.Send" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shablons" EntityType="Self.Shablons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Parametrs_Results" Association="Self.FK_Parametrs_Results">
+            <End Role="Results" EntitySet="Results" />
+            <End Role="Parametrs" EntitySet="Parametrs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Results_Send" Association="Self.FK_Results_Send">
+            <End Role="Send" EntitySet="Send" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Send_Shablons" Association="Self.FK_Send_Shablons">
+            <End Role="Shablons" EntitySet="Shablons" />
+            <End Role="Send" EntitySet="Send" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SendMailerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Parametrs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="NameParam" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="ValueParam" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="ID_result" Type="Int32" />
+          <NavigationProperty Name="Results" Relationship="SendMailerModel.FK_Parametrs_Results" FromRole="Parametrs" ToRole="Results" />
+        </EntityType>
+        <EntityType Name="Send">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="ID_shablon" Type="Int32" />
+          <NavigationProperty Name="Shablons" Relationship="Self.FK_Send_Shablons" FromRole="Send" ToRole="Shablons" />
+          <NavigationProperty Name="Results" Relationship="SendMailerModel.FK_Results_Send" FromRole="Send" ToRole="Results" />
+        </EntityType>
+        <EntityType Name="Shablons">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="DB_Name" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Query" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Send" Relationship="Self.FK_Send_Shablons" FromRole="Shablons" ToRole="Send" />
+          <Property Name="Consumer_Type" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Send_Shablons">
+          <End Role="Shablons" Type="Self.Shablons" Multiplicity="0..1" />
+          <End Role="Send" Type="Self.Send" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shablons">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Send">
+              <PropertyRef Name="ID_shablon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MailContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Parametrs" EntityType="Self.Parametrs" />
+          <EntitySet Name="Send" EntityType="Self.Send" />
+          <EntitySet Name="Shablons" EntityType="Self.Shablons" />
+          <AssociationSet Name="FK_Send_Shablons" Association="Self.FK_Send_Shablons">
+            <End Role="Shablons" EntitySet="Shablons" />
+            <End Role="Send" EntitySet="Send" />
+          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="SendMailerModel.sysdiagrams" />
+          <EntitySet Name="Results" EntityType="SendMailerModel.Results" />
+          <AssociationSet Name="FK_Parametrs_Results" Association="SendMailerModel.FK_Parametrs_Results">
+            <End Role="Results" EntitySet="Results" />
+            <End Role="Parametrs" EntitySet="Parametrs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Results_Send" Association="SendMailerModel.FK_Results_Send">
+            <End Role="Send" EntitySet="Send" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Results">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_send" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Client_account" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Flag_success" Type="Boolean" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Parametrs" Relationship="SendMailerModel.FK_Parametrs_Results" FromRole="Results" ToRole="Parametrs" />
+          <NavigationProperty Name="Send" Relationship="SendMailerModel.FK_Results_Send" FromRole="Results" ToRole="Send" />
+        </EntityType>
+        <Association Name="FK_Parametrs_Results">
+          <End Type="SendMailerModel.Results" Role="Results" Multiplicity="0..1" />
+          <End Type="SendMailerModel.Parametrs" Role="Parametrs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Results">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Parametrs">
+              <PropertyRef Name="ID_result" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Results_Send">
+          <End Type="SendMailerModel.Send" Role="Send" Multiplicity="1" />
+          <End Type="SendMailerModel.Results" Role="Results" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Send">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="ID_send" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище SendMailerModelContainer" CdmEntityContainer="MailContext">
+          <EntitySetMapping Name="Parametrs">
+            <EntityTypeMapping TypeName="SendMailerModel.Parametrs">
+              <MappingFragment StoreEntitySet="Parametrs">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NameParam" ColumnName="NameParam" />
+                <ScalarProperty Name="ValueParam" ColumnName="ValueParam" />
+                <ScalarProperty Name="ID_result" ColumnName="ID_result" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Send">
+            <EntityTypeMapping TypeName="SendMailerModel.Send">
+              <MappingFragment StoreEntitySet="Send">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ID_shablon" ColumnName="ID_shablon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shablons">
+            <EntityTypeMapping TypeName="SendMailerModel.Shablons">
+              <MappingFragment StoreEntitySet="Shablons">
+                <ScalarProperty Name="Consumer_Type" ColumnName="Consumer_Type" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="DB_Name" ColumnName="DB_Name" />
+                <ScalarProperty Name="Query" ColumnName="Query" />
+                <ScalarProperty Name="HTML" ColumnName="HTML" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SendMailerModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Results">
+            <EntityTypeMapping TypeName="SendMailerModel.Results">
+              <MappingFragment StoreEntitySet="Results">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Flag_success" ColumnName="Flag_success" />
+                <ScalarProperty Name="Client_account" ColumnName="Client_account" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ID_send" ColumnName="ID_send" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

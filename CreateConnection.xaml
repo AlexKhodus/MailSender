@@ -1,0 +1,69 @@
+﻿<Window x:Class="MailSender.CreateConnection"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MailSender"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:beha="clr-namespace:MailSender.Behaviours"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        DataContext="{Binding Source={StaticResource ResourceKey=Locator}, Path=CreateConnection}"
+        Height="350" Width="400" ResizeMode="CanMinimize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel Background="#333">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 50 0 20">
+                <TextBox Width="240" 
+                         HorizontalAlignment="Center" 
+                         Foreground="White"
+                         BorderBrush="#FF9209" 
+                         FontWeight="Bold"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         materialDesign:HintAssist.Hint="Название подключения"
+                         Text="{Binding NameConnection}"
+                         />
+                
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 10 0 60">
+                <TextBox Width="240" 
+                         HorizontalAlignment="Center" 
+                         Foreground="White"
+                         BorderBrush="#FF9209" 
+                         FontWeight="Bold"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         materialDesign:HintAssist.Hint="Строка подключения"
+                         Text="{Binding ConnectionString}"
+                         />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <Button Width="120" 
+                        Height="40" 
+                        Margin="0 0 10 0" 
+                        Background="Transparent" 
+                        Cursor="Hand" 
+                        BorderBrush="#FF9209" 
+                        BorderThickness="3"
+                        Content="Назад"  
+                        materialDesign:ButtonAssist.CornerRadius="5" 
+                        Foreground="White" 
+                        FontFamily="Verdana" 
+                        FontWeight="Bold" 
+                        Command="{Binding BackPage}"/>
+                <Button Width="120" 
+                        Height="40"
+                        Margin="10 0 0 0" 
+                        Background="#FF9209" 
+                        Cursor="Hand"
+                        BorderBrush="#E5A11B" 
+                        Content="Добавить"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        Foreground="White" 
+                        FontFamily="Verdana"
+                        FontWeight="Bold"
+                        Command="{Binding AddNewConnection}"
+                        />
+            </StackPanel>
+
+        </StackPanel>
+    </Grid>
+</Window>
